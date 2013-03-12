@@ -8,6 +8,6 @@ node-weibo
   	// 得到access_token
   	weibo.access_token('your_username', 'your_password');
   	// 状态
-	weibo.update('your_access_token', '中文测试')
+	weibo.update('your_access_token', '中文测试状态')
 	// 图片
-	weibo.upload('your_access_tokenB', '中文测试3', '/Users/xream/tmp/test.png')
+	weibo.upload('your_access_token', '中文测试图片', '/Users/xream/tmp/test.png')
