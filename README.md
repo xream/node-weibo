@@ -13,3 +13,5 @@ node-weibo
 	weibo.upload('your_access_token', '中文测试图片', '/Users/xream/tmp/test.png')
 	// api访问频率限制情况
 	weibo.rate('your_access_token')
+	// 长链接转换成短链接
+	weibo.shorten('your_access_token', 'url_long')

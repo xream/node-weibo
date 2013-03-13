@@ -10,7 +10,8 @@ function Weibo(options){
     access_token_url: 'https://api.weibo.com/oauth2/access_token',
     update_url: 'https://api.weibo.com/2/statuses/update.json',
     upload_url: 'https://upload.api.weibo.com/2/statuses/upload.json',
-    rate_url: 'https://api.weibo.com/2/account/rate_limit_status.json'
+    rate_url: 'https://api.weibo.com/2/account/rate_limit_status.json',
+    shorten_url: 'https://api.weibo.com/2/short_url/shorten.json'
   };
   this.options = utils.merge(defaults, options);
 }
@@ -108,6 +109,26 @@ Weibo.prototype.rate = function(access_token){
       console.log(body);
     } else {
       console.log('rate:\n'+JSON.stringify(body, undefined, 2));
+    };
+  });
+};
+
+Weibo.prototype.shorten = function(access_token, url_long){
+  var url = this.options.shorten_url,
+  options = {
+      headers: {
+        'User-Agent': this.options.user_agent,
+        Authorization: 'OAuth2 '+access_token,
+      }
+    };
+  needle.get(url+'?url_long='+encodeURIComponent(url_long), options, function(err, res, body){
+    if (err) {
+      console.log(err);
+    } else if (res && res.statusCode != 200) {
+      console.log(res.statusCode);
+      console.log(body);
+    } else {
+      console.log('url_long:\n'+JSON.stringify(body, undefined, 2));
     };
   });
 };
