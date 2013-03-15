@@ -11,7 +11,8 @@ module.exports = Weibo = function Weibo(options){
     update_url: 'https://api.weibo.com/2/statuses/update.json',
     upload_url: 'https://upload.api.weibo.com/2/statuses/upload.json',
     rate_url: 'https://api.weibo.com/2/account/rate_limit_status.json',
-    shorten_url: 'https://api.weibo.com/2/short_url/shorten.json'
+    shorten_url: 'https://api.weibo.com/2/short_url/shorten.json',
+    upload_url_text_url: 'https://api.weibo.com/2/statuses/upload_url_text.json'
   };
   this.options = utils.merge(defaults, options);
 }
@@ -65,6 +66,30 @@ Weibo.prototype.update = function(access_token, status){
       console.log(body);
     } else {
       console.log('update:\n'+JSON.stringify(body, undefined, 2));
+    };
+  });
+};
+
+Weibo.prototype.upload_url_text = function(access_token, status, pic_url){
+  var url = this.options.upload_url_text_url,
+    options = {
+      headers: {
+        'User-Agent': this.options.user_agent,
+        Authorization: 'OAuth2 '+access_token,
+      }
+    },
+    data = {
+      status: status,
+      url: pic_url
+    };
+  needle.post(url, data, options, function(err, res, body){
+    if (err) {
+      console.log(err);
+    } else if (res && res.statusCode != 200) {
+      console.log(res.statusCode);
+      console.log(body);
+    } else {
+      console.log('upload_url_text:\n'+JSON.stringify(body, undefined, 2));
     };
   });
 };
