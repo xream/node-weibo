@@ -1,7 +1,7 @@
 var needle = require('needle'),
   utils = require('./utils');
 
-module.exports = Weibo = function Weibo(options) {
+module.exports = Weibo = function (options) {
   var defaults = {
     user_agent: 'Dalvik/1.6.0 (Linux; U; Android 4.2.1; Nexus 4 Build/JOP40D) WeiboAndroidSDK',
     client_id: 211160679,
@@ -17,7 +17,7 @@ module.exports = Weibo = function Weibo(options) {
   this.options = utils.merge(defaults, options);
 }
 
-Weibo.prototype.access_token = function(username, password, callback) {
+Weibo.prototype.access_token = function (username, password, callback) {
   var url = this.options.access_token_url,
     options = {
       headers: {
@@ -37,7 +37,7 @@ Weibo.prototype.access_token = function(username, password, callback) {
     } else if (res && res.statusCode != 200) {
       console.log(res.statusCode);
       console.log(body);
-    } else {
+    } else {  
       var body = JSON.parse(body);
       console.log('fetching access_token:\n' + JSON.stringify(body, undefined, 2));
       console.log('expires_in: ' + body.expires_in.toString());
